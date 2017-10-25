@@ -1,0 +1,55 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Phaser - Making your first game, part 1</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update});
+var player;
+var cursors;
+
+function preload() {
+    game.load.image('star', 'assets/star.png');
+    console.log("Got through preload");
+}
+
+function create() {
+    player = game.add.sprite(0, 0, 'star');
+    game.physics.enable(player, Phaser.Physics.ARCADE);
+    player.body.collideWorldBounds = true;
+    player.body.gravity.y = 500;
+    cursors = game.input.keyboard.createCursorKeys();
+
+    console.log("Got through create");
+}
+
+function update() {
+    player.body.velocity.x = 0;
+
+    if (cursors.left.isDown)
+    {
+        player.body.velocity.x = -250;
+    }
+    else if (cursors.right.isDown)
+    {
+        player.body.velocity.x = 250;
+    }
+
+}
+
+
+
+</script>
+
+</body>
+</html>
