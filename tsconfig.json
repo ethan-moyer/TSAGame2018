@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "removeComments": true,
+      "noImplicitAny": false,
+      "outDir": "js"
+    },
+    "files": [
+      "./node_modules/phaser-ce/typescript/phaser.d.ts",
+      "./src/Game.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+}

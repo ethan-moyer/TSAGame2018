@@ -1,0 +1,21 @@
+{
+  "name": "TSAGame2018",
+  "version": "0.0.1",
+  "description": "A Game",
+  "main": "index.js",
+  "repository": "https://github.com/mysticpenguin/TSAGame2018",
+  "author": "PixelCrit Studios",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "phaser-ce": "^2.9.1",
+    "rollup": "^0.50.0",
+    "rollup-plugin-typescript2": "^0.7.0",
+    "rollup-plugin-uglify": "^2.0.1",
+    "typescript": "^2.5.3"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
+  }
+}
