@@ -1,38 +1,51 @@
 export class Debug extends Phaser.State {
-    debug: Phaser.Sprite;
-    cursors: Phaser.CursorKeys;
-    map: Phaser.Tilemap;
-    player: Phaser.Sprite;
-    layer: Phaser.TilemapLayer;
+    private cursors: Phaser.CursorKeys;
+    private player: Phaser.Sprite;
+    private walls: Phaser.TilemapLayer;
+    private speed: number;
     // pSpawn: Phaser.Group;
 
-    preload() {
+    public preload() {
         // this.load.image("preloadBar", "./assets/startbar.png");
         // this.load.image("preloadBarBg", "./assets/prloadBar.png");
     }
-    
-    create() {
-        this.game.physics.startSystem(Phaser.Physics.ARCADE);        
-        this.map = this.game.add.tilemap("debug");
-        this.map.addTilesetImage("placeHolder", "debug-tileset");
-        this.map.createLayer("Background");
-        this.layer = this.map.createLayer("Walls");
-        this.map.setCollisionBetween(1,2,true,this.layer);
-        
-        // this.pSpawn = this.game.add.group();
-        // this.map.createFromObjects("Entities", 2, "", 0, true, false, this.pSpawn);
+
+    public create() {
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
+        let map = this.game.add.tilemap("debug");
+        map.addTilesetImage("placeHolder", "debug-tileset");
+
+        this.walls = map.createLayer("Walls");
+        this.walls.resizeWorld();
+        map.setCollision(1, true, "Walls");
+        this.game.physics.enable(this.walls);
+
+        this.player = this.game.add.sprite(32, 96, "debug-player");
+        this.game.physics.enable(this.player);
+        this.player.body.collideWorldBounds = true;
+
+        this.game.camera.follow(this.player);
         this.cursors = this.game.input.keyboard.createCursorKeys();
 
-        this.player = this.game.add.sprite(32, 64, 'player');
-        this.game.physics.enable(this.player);
-        this.game.physics.arcade.gravity.y = 250;
-        this.player.body.collideWorldBounds = true;
+        this.speed = 192;
     }
 
-    update() {
-        this.game.physics.arcade.collide(this.player, this.layer);
-        if (this.cursors.up.isDown) {
-            console.log("up!");
+    public update() {
+        this.game.physics.arcade.collide(this.player, this.walls);
+        let velocity = this.player.body.velocity;
+        velocity.set(0);
+        if(this.cursors.up.isDown) {
+            velocity.y -= this.speed;
+        }
+        else if(this.cursors.down.isDown) {
+            velocity.y += this.speed;
+        }
+        if(this.cursors.left.isDown) {
+            velocity.x -= this.speed;
+        }
+        else if(this.cursors.right.isDown) {
+            velocity.x += this.speed;
         }
     }
 }

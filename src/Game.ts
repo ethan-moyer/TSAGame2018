@@ -6,9 +6,9 @@ class Game extends Phaser.Game {
         this.antialias = false;
         this.state.add("Preloader", States.Preloader);
         this.state.add("Debug", States.Debug);
-        this.state.add("Boot", States.Boot, true);        
+        this.state.add("Boot", States.Boot, true);
         this.state.start("Boot");
     }
 }
 
-(<any>window).game = new Game();
+(window as any).game = new Game();
