@@ -7,7 +7,9 @@ export class Preloader extends Phaser.State {
         // this.load.spritesheet("cryopod", "./assets/cryopod.png", 25, 80);
         // this.load.audio("first", "./assets/sound/first.mp3");
         // this.load.tilemap('map', 'assets/Tile maps/Nova90.json', null, Phaser.Tilemap.TILED_JSON);
-        this.load.image("debug", "assets/Capture.png");
+        this.load.tilemap("debug", "assets/testMap.json", null, Phaser.Tilemap.TILED_JSON);
+        this.load.image("debug-player", "assets/debug-player.png");
+        this.load.image("debug-tileset", "assets/Tiles.png")
     }
 
     create() {
