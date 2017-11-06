@@ -10,6 +10,7 @@ export class Preloader extends Phaser.State {
         this.load.tilemap("debug", "assets/debug-map.json", null, Phaser.Tilemap.TILED_JSON);
         this.load.image("debug-player", "assets/debug-player.png");
         this.load.image("debug-tileset", "assets/Tiles.png");
+        this.load.spritesheet("playerSpritesheet", "assets/player.png", 20, 32, 12);
     }
 
     public create() {
