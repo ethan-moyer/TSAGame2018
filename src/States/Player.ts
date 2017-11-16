@@ -26,33 +26,17 @@ export class Player extends Phaser.Sprite {
         let velocity = this.body.velocity;
         velocity.set(0);
         
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP) == false && this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN) == false && this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) == false && this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) == false) {
-            this.animations.stop();
-            if (this.lastKey == 1) {
-                this.play("upIdle");
-            }
-            else if (this.lastKey == 2) {
-                this.play("downIdle");
-            }
-            else if (this.lastKey == 3) {
-                this.play("leftIdle");
-            }
-            else if (this.lastKey == 4) {
-                this.play("rightIdle");
-            }
-        }
-
         if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
             velocity.y -= this.speed;
             this.play("upAnim");
-            this.lastKey = 1;
+            console.log("Send nudes");
         }
         else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
             velocity.y += this.speed;
             this.play("downAnim");
             this.lastKey = 2;
         }
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
             velocity.x -= this.speed;
             this.play("leftAnim");
             this.lastKey = 3;
@@ -62,7 +46,9 @@ export class Player extends Phaser.Sprite {
             this.play("rightAnim");
             this.lastKey = 4;
         }
-
+        else {
+            this.animations.stop();
+        }
         
             
     }
