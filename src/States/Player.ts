@@ -1,6 +1,8 @@
+import { Enemy1 } from "./Enemy1"
 export class Player extends Phaser.Sprite {
-    private speed: number;
+    static speed: number = 192;
     private lastKey: number;
+    private enemy1: Enemy1;    
     constructor(game: Phaser.Game, x: number, y: number) {
         super(game, x, y, "playerSpritesheet", 0);
         this.anchor.setTo(0.5, 0);
@@ -17,53 +19,38 @@ export class Player extends Phaser.Sprite {
         game.camera.follow(this);
 
         game.add.existing(this);
-        this.speed = 192;
         this.lastKey = 2;
+        console.log("running");
     }
 
     update() {
         this.game.physics.arcade.collide(this, (this.game.state.getCurrentState() as any).walls);
+        this.game.physics.arcade.collide(this, (this.game.state.getCurrentState() as any).enemy1);
         let velocity = this.body.velocity;
         velocity.set(0);
         
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP) == false && this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN) == false && this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) == false && this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) == false) {
-            this.animations.stop();
-            if (this.lastKey == 1) {
-                this.play("upIdle");
-            }
-            else if (this.lastKey == 2) {
-                this.play("downIdle");
-            }
-            else if (this.lastKey == 3) {
-                this.play("leftIdle");
-            }
-            else if (this.lastKey == 4) {
-                this.play("rightIdle");
-            }
-        }
-
         if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            velocity.y -= this.speed;
+            velocity.y -= Player.speed;
             this.play("upAnim");
             this.lastKey = 1;
         }
         else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-            velocity.y += this.speed;
+            velocity.y += Player.speed;
             this.play("downAnim");
             this.lastKey = 2;
         }
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            velocity.x -= this.speed;
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+            velocity.x -= Player.speed;
             this.play("leftAnim");
             this.lastKey = 3;
         }
         else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            velocity.x += this.speed;
+            velocity.x += Player.speed;
             this.play("rightAnim");
             this.lastKey = 4;
         }
-
-        
-            
+        else {
+            this.animations.stop();
+        }
     }
 }
